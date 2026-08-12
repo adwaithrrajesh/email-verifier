@@ -1,25 +1,32 @@
-# Docker Compose for the email-verifier (prober) service.
-# Builds and runs the verification server standalone.
-#
-#   docker compose up --build -d
-#   curl http://localhost:9080/
-
 services:
   email-verifier:
     build:
       context: ../../server
       dockerfile: Dockerfile
+
     container_name: email-verifier
+
     restart: unless-stopped
-    env_file: ../../server/.env
+
+    env_file:
+      - ../../server/.env
+
+    # Only expose the application to the VPS itself.
+    # NGINX will proxy requests to this port.
     ports:
-      - "9080:9080"
+      - "127.0.0.1:9080:9080"
+
     healthcheck:
-      test: [ "CMD", "curl", "-fsS", "http://[IP_ADDRESS]/" ]
+      test:
+        - CMD
+        - curl
+        - -fsS
+        - http://127.0.0.1:9080/
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 20s
+
     deploy:
       resources:
         limits:
