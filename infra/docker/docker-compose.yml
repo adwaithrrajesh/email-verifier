@@ -11,8 +11,6 @@ services:
     env_file:
       - ../../server/.env
 
-    # Only expose the application to the VPS itself.
-    # NGINX will proxy requests to this port.
     ports:
       - "127.0.0.1:9080:9080"
 
