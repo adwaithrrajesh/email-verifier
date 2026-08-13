@@ -12,14 +12,14 @@ services:
       - ../../server/.env
 
     ports:
-      - "${PORT:-9080}:9080"
+      - "${PORT:-9082}:${PORT:-9082}"
 
     healthcheck:
       test:
         - CMD
         - curl
         - -fsS
-        - http://127.0.0.1:9080/
+        - http://127.0.0.1:${PORT:-9082}/
       interval: 30s
       timeout: 10s
       retries: 3
