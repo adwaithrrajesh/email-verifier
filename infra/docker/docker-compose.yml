@@ -12,7 +12,7 @@ services:
       - ../../server/.env
 
     ports:
-      - "9080:9080"
+      - "${PORT:-9080}:9080"
 
     healthcheck:
       test:
