@@ -11,7 +11,8 @@ services:
     env_file:
       - ../../server/.env
 
-    network_mode: host
+    ports:
+      - "9080:9080"
 
     healthcheck:
       test:
